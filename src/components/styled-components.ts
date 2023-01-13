@@ -38,8 +38,15 @@ export const FlexEllipsis = styled.div`
   -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-align: justify;
+  text-justify: inter-word;
 `;
 
-export const EditIconWrapper = styled.div`
+export const AddPointerCursor = styled.div`
   cursor: pointer;
+`;
+
+export const JustifyText = styled.div`
+  text-align: justify;
+  text-justify: inter-word;
 `;

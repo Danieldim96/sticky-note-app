@@ -1,17 +1,24 @@
 import { NoteType } from "../types";
-import { EditIconWrapper, FlexEllipsis, StyledNote } from "./styled-components";
+import {
+  AddPointerCursor,
+  FlexEllipsis,
+  StyledNote,
+} from "./styled-components";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { PencilSquare } from "react-bootstrap-icons";
+import { MouseEventHandler } from "react";
 
 export const Note = ({
   note,
   setSelctedNote,
   setModalOpen,
+  setViewDetails,
 }: {
   note: NoteType;
   setSelctedNote: Function;
   setModalOpen: Function;
+  setViewDetails: MouseEventHandler<HTMLDivElement> | any;
 }) => {
   const { noteContent, noteHeight, noteTitle, noteWidth } = note;
 
@@ -22,19 +29,21 @@ export const Note = ({
 
   return (
     <StyledNote height={noteHeight} width={noteWidth}>
-      <EditIconWrapper title={`Edit ${noteTitle} note.`}>
+      <AddPointerCursor title={`Edit ${noteTitle} note.`}>
         <PencilSquare onClick={handleEditIconClick} />
-      </EditIconWrapper>
-      <Row className="mt-3">
-        <Col>
-          <h5>{noteTitle}</h5>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <FlexEllipsis>{noteContent}</FlexEllipsis>
-        </Col>
-      </Row>
+      </AddPointerCursor>
+      <AddPointerCursor onClick={() => setViewDetails(note)}>
+        <Row className="mt-3">
+          <Col>
+            <h5>{noteTitle}</h5>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FlexEllipsis>{noteContent}</FlexEllipsis>
+          </Col>
+        </Row>
+      </AddPointerCursor>
     </StyledNote>
   );
 };
