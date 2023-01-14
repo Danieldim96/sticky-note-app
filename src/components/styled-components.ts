@@ -31,15 +31,9 @@ export const StyledNote = styled.div`
   border: 1px solid gray;
   padding: 10px;
   margin: 1.5rem;
-`;
-
-export const FlexEllipsis = styled.div`
-  display: -webkit-box;
-  -webkit-line-clamp: 8;
-  -webkit-box-orient: vertical;
+  position: relative;
+  box-sizing: border-box;
   overflow: hidden;
-  text-align: justify;
-  text-justify: inter-word;
 `;
 
 export const AddPointerCursor = styled.div`
@@ -49,4 +43,39 @@ export const AddPointerCursor = styled.div`
 export const JustifyText = styled.div`
   text-align: justify;
   text-justify: inter-word;
+`;
+
+export const RightSideResizer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+`;
+export const LeftSideResizer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  cursor: col-resize;
+`;
+
+export const TopSideResizer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  cursor: row-resize;
+`;
+
+export const BottomSideResizer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  cursor: row-resize;
 `;

@@ -1,1 +1,1 @@
-export { addNote, editNote, deleteNote, getNotes } from "./stickynotes";
+export { addNote, editNote, deleteNote } from "./stickynotes";

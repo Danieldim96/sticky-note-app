@@ -30,9 +30,6 @@ export const NotesReducer = (
       });
       return state;
 
-    case DISPATCH_TYPES.getNotes:
-      return state;
-
     default:
       return state;
   }

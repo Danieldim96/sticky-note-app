@@ -16,6 +16,3 @@ export const deleteNote = (noteId: number) => ({
   note: { noteId },
 });
 
-export const getNotes = () => ({
-  type: DISPATCH_TYPES.getNotes,
-});

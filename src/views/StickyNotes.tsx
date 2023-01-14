@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { Note, NotesModal, Banner, NoteDetail } from "../components";
 import { NoteType } from "../types";
@@ -10,16 +10,18 @@ export const StickyNotes = ({ actions }: any) => {
   const [selectedNote, setSelctedNote] = useState<NoteType | null>(null);
   const [viewDetails, setViewDetails] = useState<NoteType | null>(null);
 
+
+
   const handleSubmit = (note: NoteType) => {
     if (!!selectedNote) actions.editNote(note);
     else actions.addNote(note);
-    setModalOpen(false);
-    setSelctedNote(null);
+    handleCloseModal();
   };
 
-  const handleCloseDetailModal = () => {
+  const handleCloseModal = () => {
     setModalOpen(false);
     setViewDetails(null);
+    setSelctedNote(null);
   };
 
   return (
@@ -27,14 +29,14 @@ export const StickyNotes = ({ actions }: any) => {
       {!!viewDetails && (
         <NoteDetail
           note={viewDetails}
-          onClose={handleCloseDetailModal}
+          onClose={handleCloseModal}
           showModal={!!viewDetails}
         />
       )}
       {showModal && (
         <NotesModal
           title="Add New Note"
-          onClose={() => setModalOpen(false)}
+          onClose={handleCloseModal}
           showModal={showModal}
           onSubmit={handleSubmit}
           primaryButtonText={!!selectedNote ? "Edit Note" : "Create Note"}
