@@ -25,6 +25,8 @@ export const NotesModal = ({
         noteContent: noteData?.noteContent,
         noteTitle: noteData?.noteTitle,
         noteId: noteData?.noteId,
+        noteWidth: noteData?.noteWidth,
+        noteHeight: noteData?.noteHeight,
       }
     : { noteContent: "", noteTitle: "", noteId: getUniqueId(5) };
 
