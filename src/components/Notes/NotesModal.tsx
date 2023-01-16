@@ -31,6 +31,8 @@ export const NotesModal = ({
   });
   const [error, setError] = useState<string>("");
 
+  if (!showModal) return null;
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setError("");
@@ -40,6 +42,13 @@ export const NotesModal = ({
       return setError("Please ensure all fields are filled");
     }
     onSubmit(note);
+    setNoteData({
+      noteContent: "",
+      noteHeight: 300,
+      noteTitle: "",
+      noteWidth: 200,
+      noteId: getUniqueId(5),
+    });
   };
 
   return (
@@ -61,7 +70,7 @@ export const NotesModal = ({
                 setNoteData({ ...note, noteTitle: e.target.value })
               }
               required
-              value={note.noteTitle}
+              value={note?.noteTitle}
             />
           </Form.Group>
           <Form.Group className="mb-3">

@@ -12,6 +12,11 @@ export const NotesPortal = (props: any) => {
   const onMouseDrag = (movementX: number, movementY: number) => {
     if (!noteRef.current) return;
     const { x, y } = noteRef.current.getBoundingClientRect();
+    const {
+      y: trashZoneY,
+      height,
+      width,
+    } = props.trashZoneRef.current.getBoundingClientRect();
 
     if (prevNoteId !== props.note.noteId) {
       const newZIndex = String(parseInt(prevZIndex) + 1);
@@ -20,8 +25,25 @@ export const NotesPortal = (props: any) => {
       prevNoteId = props.note.noteId;
     }
 
-    noteRef.current.style.left = `${x + movementX}px`;
-    noteRef.current.style.top = `${y + movementY}px`;
+    const newX = x + movementX;
+    const newY = y + movementY;
+    const minTrashZoneX = window.innerWidth / 2 - width / 2;
+    const maxTrashZoneX = window.innerWidth / 2 + width / 2;
+    const maxTrashZoneY = trashZoneY + height;
+    const minTrashZoneY = trashZoneY;
+
+    // determine if note entered trash zone
+    if (
+      newX >= minTrashZoneX &&
+      newX <= maxTrashZoneX &&
+      newY >= minTrashZoneY &&
+      newY <= maxTrashZoneY
+    ) {
+      props.getDraggedNote(props.note);
+    }
+
+    noteRef.current.style.left = `${newX}px`;
+    noteRef.current.style.top = `${newY}px`;
   };
 
   const newProps = { ...props, onMouseDrag };

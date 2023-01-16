@@ -16,7 +16,9 @@ export const NotesReducer = (
       return { ...state, notes };
 
     case DISPATCH_TYPES.deleteNote:
-      const filteredNotes = state.notes.filter(({ id }) => id === note?.noteId);
+      const filteredNotes = state.notes.filter(
+        ({ noteId }) => noteId !== note?.noteId
+      );
       return { ...state, notes: filteredNotes };
 
     case DISPATCH_TYPES.editNote:

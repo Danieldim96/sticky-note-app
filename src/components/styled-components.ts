@@ -30,7 +30,6 @@ export const StyledNote = styled.div`
     `height: ${height}px; width: ${width}px;`};
   border: 1px solid gray;
   padding: 10px;
-  margin: 1.5rem;
   position: relative;
   box-sizing: border-box;
   overflow-y: auto;
@@ -84,4 +83,14 @@ export const TopDragWrapper = styled.div`
 export const NoteContainer = styled.div`
   position: fixed;
   z-index: 1;
+`;
+
+export const TrashZoneWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 150px;
+  border: 3px dotted red;
+  font-size: 2rem;
 `;

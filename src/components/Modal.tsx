@@ -10,6 +10,7 @@ export const Modal = ({
   children,
   onPrimaryButtonClick,
   primaryButtonText,
+  variant = "success",
 }: {
   showModal: boolean;
   onClose: Function | any;
@@ -17,6 +18,7 @@ export const Modal = ({
   children: ReactElement;
   onPrimaryButtonClick: MouseEventHandler<HTMLButtonElement>;
   primaryButtonText: string;
+  variant?: string;
 }): ReactElement => {
   return (
     <RModal show={showModal} onHide={onClose}>
@@ -27,7 +29,7 @@ export const Modal = ({
       <RModal.Footer>
         <ButtonWrapper>
           <Button
-            variant="success"
+            variant={variant}
             onClick={onPrimaryButtonClick}
             type="submit"
           >
