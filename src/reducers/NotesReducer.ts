@@ -12,6 +12,12 @@ export const NotesReducer = (
   const { type, note } = action;
 
   switch (type) {
+    /**
+     * the aim here is to manually add position and size atrributes to the note when creating the note.
+     * we also needed to prevent each new note from rendering ontop each other, so we calculate the last
+     * Y position of the last note and add it's height and a 10px spacing veritically.
+     * We also generate randomly a bg color for each new note.
+     */
     case DISPATCH_TYPES.addNote:
       let notes;
       const oldState = [...(state?.notes ?? [])];

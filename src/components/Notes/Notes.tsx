@@ -12,6 +12,11 @@ export const Notes = (props: {
 }) => {
   const notes = useSelector((state: any) => state?.notes?.notes);
 
+  /**
+   * rendering each individual note in its own portal to allow for maximum positioning of each note
+   * without interfering with other notes.
+   */
+
   return (
     <NoteWrapper>
       {notes?.map((note: NoteType) => {

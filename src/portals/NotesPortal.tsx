@@ -27,12 +27,21 @@ export const NotesPortal = (props: {
       width,
     } = props.trashZoneRef.current.getBoundingClientRect();
 
+    // only update zIndex if a new element is being dragged
+    // we do this by storing the last zindex and then updating it by 1.
+    // this ensure the new pin being dragged has the highest zIndex on the page.
     if (prevNoteId !== props.note.noteId) {
       const newZIndex = String(parseInt(prevZIndex) + 1);
       noteRef.current.style.zIndex = newZIndex;
       prevZIndex = newZIndex;
       prevNoteId = props.note.noteId;
     }
+
+    /**
+     * to calculate minTrashZoneX, we substract the note's width from the x position of the trashZone. 
+     * This is to ensure that the tip of the note is recognised immediately it crosses the zone.
+     * Similarly, the maxTrashZoneX is calculated below so as to ensure we detect immediately the pin leaves the zone.
+     */
 
     const newX = x + movementX;
     const newY = y + movementY;
@@ -59,6 +68,7 @@ export const NotesPortal = (props: {
     if (!noteRef.current) return;
     const { x, y } = noteRef.current.getBoundingClientRect();
 
+    // only update position in redux store if position changed
     if (props.note.notePosX !== x || props.note.notePosY !== y) {
       props.note.notePosX = x;
       props.note.notePosY = y;
