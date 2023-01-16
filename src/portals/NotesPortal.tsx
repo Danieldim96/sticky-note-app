@@ -2,17 +2,26 @@ import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { Note } from "../components";
 import { NoteContainer } from "../components/styled-components";
+import { NoteType } from "../types";
 
 let prevNoteId = "";
 let prevZIndex = "1";
 
-export const NotesPortal = (props: any) => {
+export const NotesPortal = (props: {
+  setSelctedNote: Function;
+  setModalOpen: Function;
+  trashZoneRef: any;
+  getDraggedNote: Function;
+  onNoteResizeChange: Function;
+  note: NoteType;
+}) => {
   const noteRef = useRef<HTMLInputElement>(null);
 
   const onMouseDrag = (movementX: number, movementY: number) => {
     if (!noteRef.current) return;
-    const { x, y } = noteRef.current.getBoundingClientRect();
+    const { x, y, width: elWidth } = noteRef.current.getBoundingClientRect();
     const {
+      x: trashZoneX,
       y: trashZoneY,
       height,
       width,
@@ -27,8 +36,8 @@ export const NotesPortal = (props: any) => {
 
     const newX = x + movementX;
     const newY = y + movementY;
-    const minTrashZoneX = window.innerWidth / 2 - width / 2;
-    const maxTrashZoneX = window.innerWidth / 2 + width / 2;
+    const minTrashZoneX = trashZoneX - elWidth;
+    const maxTrashZoneX = trashZoneX + width + elWidth;
     const maxTrashZoneY = trashZoneY + height;
     const minTrashZoneY = trashZoneY;
 
@@ -46,10 +55,25 @@ export const NotesPortal = (props: any) => {
     noteRef.current.style.top = `${newY}px`;
   };
 
-  const newProps = { ...props, onMouseDrag };
+  const onDraggerMouseUp = () => {
+    if (!noteRef.current) return;
+    const { x, y } = noteRef.current.getBoundingClientRect();
+
+    if (props.note.notePosX !== x || props.note.notePosY !== y) {
+      props.note.notePosX = x;
+      props.note.notePosY = y;
+      props.onNoteResizeChange(props.note);
+    }
+  };
+
+  const newProps = { ...props, onMouseDrag, onDraggerMouseUp };
 
   return createPortal(
-    <NoteContainer ref={noteRef}>
+    <NoteContainer
+      ref={noteRef}
+      top={props.note.notePosY}
+      left={props.note.notePosX}
+    >
       <Note {...newProps} />
     </NoteContainer>,
     document.getElementById("notes-section")!

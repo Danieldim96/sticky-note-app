@@ -26,20 +26,31 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const StyledNote = styled.div`
-  ${({ height, width }: { height: number; width: number }) =>
-    `height: ${height}px; width: ${width}px;`};
+  ${({
+    noteHeight,
+    noteWidth,
+    notebgColor,
+  }: {
+    noteHeight?: number;
+    noteWidth?: number;
+    notebgColor?: string;
+  }) =>
+    `height: ${noteHeight}px; width: ${noteWidth}px; background-color: ${notebgColor};`};
   border: 1px solid gray;
-  padding: 10px;
   position: relative;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100%;
-  background: white;
 `;
 
 export const AddPointerCursor = styled.div`
   cursor: pointer;
+  padding: 10px;
+`;
+
+export const RowWrapper = styled.div`
+  cursor: pointer;
+  padding: 10px;
 `;
 
 export const JustifyText = styled.div`
@@ -76,13 +87,18 @@ export const TopDragWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  height: 10px;
+  justify-content: center;
+  height: auto;
+  padding: 10px;
   cursor: move;
+  background: #f0f0f0;
 `;
 
 export const NoteContainer = styled.div`
   position: fixed;
   z-index: 1;
+  ${({ top = 0, left = 0 }: { top?: number; left?: number }) =>
+    `top: ${top < 0 ? 0 : top}px; left: ${left < 0 ? 0 : left}px;`}
 `;
 
 export const TrashZoneWrapper = styled.div`

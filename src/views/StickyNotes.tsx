@@ -10,12 +10,12 @@ import { NoteType } from "../types";
 import { TrashZoneContainer } from "./styled-components";
 
 let draggedNote: NoteType | null = null;
+let selectedNote: NoteType | null = null;
 
 export const StickyNotes = ({ actions }: any) => {
   const [showModal, setModalOpen] = useState<boolean>(false);
   const [showDeleteNoteModal, setDeleteNoteModalOpen] =
     useState<boolean>(false);
-  const [selectedNote, setSelctedNote] = useState<NoteType | null>(null);
   const trashZoneRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (note: NoteType) => {
@@ -24,9 +24,13 @@ export const StickyNotes = ({ actions }: any) => {
     handleCloseModal();
   };
 
+  const getSelectedNote = (note: NoteType) => {
+    selectedNote = note;
+  };
+
   const handleCloseModal = () => {
     setModalOpen(false);
-    setSelctedNote(null);
+    selectedNote = null;
     setDeleteNoteModalOpen(false);
   };
 
@@ -38,20 +42,24 @@ export const StickyNotes = ({ actions }: any) => {
   const getDraggedNote = (note: NoteType) => {
     if (draggedNote?.noteId !== note.noteId) {
       draggedNote = note;
-      setDeleteNoteModalOpen(true);
     }
+    setDeleteNoteModalOpen(true);
+  };
+
+  const handleNoteResizeSave = (note: NoteType) => {
+    actions.editNote(note);
   };
 
   return (
     <>
-      <NotesModal
-        title="Add New Note"
-        onClose={handleCloseModal}
-        showModal={showModal}
-        onSubmit={handleSubmit}
-        primaryButtonText={!!selectedNote ? "Edit Note" : "Create Note"}
-        noteData={selectedNote}
-      />
+      {showModal && (
+        <NotesModal
+          onClose={handleCloseModal}
+          showModal={showModal}
+          onSubmit={handleSubmit}
+          noteData={selectedNote}
+        />
+      )}
       <DeleteNoteModal
         showModal={showDeleteNoteModal}
         noteTitle={draggedNote?.noteTitle}
@@ -63,10 +71,11 @@ export const StickyNotes = ({ actions }: any) => {
         <TrashZone ref={trashZoneRef} />
       </TrashZoneContainer>
       <Notes
-        setSelctedNote={setSelctedNote}
+        setSelctedNote={getSelectedNote}
         setModalOpen={setModalOpen}
         trashZoneRef={trashZoneRef}
         getDraggedNote={getDraggedNote}
+        onNoteResizeChange={handleNoteResizeSave}
       />
     </>
   );

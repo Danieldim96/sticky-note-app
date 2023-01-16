@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { TopDragWrapper } from "../styled-components";
+import { ArrowsMove } from "react-bootstrap-icons";
 
-export const NoteTopDrager = ({ onMouseDrag }: { onMouseDrag: Function }) => {
+export const NoteTopDrager = ({
+  onMouseDrag,
+  onMouseUp,
+}: {
+  onMouseDrag: Function;
+  onMouseUp: Function;
+}) => {
   const [mouseDown, setMouseDown] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,14 +29,24 @@ export const NoteTopDrager = ({ onMouseDrag }: { onMouseDrag: Function }) => {
   }, [mouseDown, onMouseDrag]);
 
   useEffect(() => {
-    const handleMouseUp = () => setMouseDown(false);
+    const handleMouseUp = () => {
+      setMouseDown(false);
+      onMouseUp();
+    };
 
     window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
       window.addEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [onMouseUp]);
 
-  return <TopDragWrapper onMouseDown={() => setMouseDown(true)} />;
+  return (
+    <TopDragWrapper
+      onMouseDown={() => setMouseDown(true)}
+      title="Place Note Anywhere on Page"
+    >
+      <ArrowsMove />
+    </TopDragWrapper>
+  );
 };

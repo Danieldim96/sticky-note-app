@@ -2,6 +2,7 @@ import { NoteType } from "../../types";
 import {
   AddPointerCursor,
   JustifyText,
+  RowWrapper,
   StyledNote,
 } from "../styled-components";
 import Row from "react-bootstrap/Row";
@@ -17,15 +18,19 @@ export const Note = ({
   setSelctedNote,
   setModalOpen,
   onMouseDrag,
+  onNoteResizeChange,
+  onDraggerMouseUp,
 }: {
   note: NoteType;
   setSelctedNote: Function;
   setModalOpen: Function;
   onMouseDrag: Function;
+  onNoteResizeChange: Function;
+  onDraggerMouseUp: Function;
 }) => {
   const noteRef = useRef<HTMLInputElement>(null);
 
-  const { noteContent, noteHeight, noteTitle, noteWidth } = note;
+  const { noteContent, noteHeight, noteTitle, noteWidth, color } = note;
 
   const handleEditIconClick = () => {
     setSelctedNote(note);
@@ -56,23 +61,36 @@ export const Note = ({
     }
   };
 
+  const onResizerMouseUp = () => {
+    const eleRef = noteRef?.current;
+    if (!eleRef) return;
+    const { width, height } = eleRef.getBoundingClientRect();
+    if (note.noteHeight !== height || note.noteWidth !== width) {
+      note.noteHeight = height;
+      note.noteWidth = width;
+      onNoteResizeChange(note);
+    }
+  };
+
   return (
-    <StyledNote height={noteHeight} width={noteWidth} ref={noteRef}>
-      <NoteTopDrager onMouseDrag={onMouseDrag} />
-      <NoteResizer onMouseResize={onMouseResize} />
+    <StyledNote notebgColor={color} noteHeight={noteHeight} noteWidth={noteWidth} ref={noteRef}>
+      <NoteTopDrager onMouseDrag={onMouseDrag} onMouseUp={onDraggerMouseUp} />
+      <NoteResizer onMouseResize={onMouseResize} onMouseUp={onResizerMouseUp} />
       <AddPointerCursor title={`Edit ${noteTitle} note.`}>
         <PencilSquare onClick={handleEditIconClick} />
       </AddPointerCursor>
-      <Row className="mt-3">
-        <Col>
-          <h5>{noteTitle}</h5>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <JustifyText>{noteContent}</JustifyText>
-        </Col>
-      </Row>
+      <RowWrapper>
+        <Row className="mt-3">
+          <Col>
+            <h5>{noteTitle}</h5>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <JustifyText>{noteContent}</JustifyText>
+          </Col>
+        </Row>
+      </RowWrapper>
     </StyledNote>
   );
 };

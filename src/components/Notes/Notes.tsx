@@ -3,32 +3,20 @@ import { NotesPortal } from "../../portals";
 import { NoteType } from "../../types";
 import { NoteWrapper } from "../styled-components";
 
-export const Notes = ({
-  setSelctedNote,
-  setModalOpen,
-  trashZoneRef,
-  getDraggedNote,
-}: {
+export const Notes = (props: {
   setSelctedNote: Function;
   setModalOpen: Function;
   trashZoneRef: any;
   getDraggedNote: Function;
+  onNoteResizeChange: Function;
 }) => {
   const notes = useSelector((state: any) => state?.notes?.notes);
 
   return (
     <NoteWrapper>
       {notes?.map((note: NoteType) => {
-        return (
-          <NotesPortal
-            note={note}
-            key={note.noteId}
-            setSelctedNote={setSelctedNote}
-            setModalOpen={setModalOpen}
-            trashZoneRef={trashZoneRef}
-            getDraggedNote={getDraggedNote}
-          />
-        );
+        const newProps = { ...props, note };
+        return <NotesPortal {...newProps} key={note.noteId} />;
       })}
     </NoteWrapper>
   );

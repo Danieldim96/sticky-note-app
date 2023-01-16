@@ -8,3 +8,7 @@ export const getUniqueId = (length: number): string => {
   }
   return result;
 };
+
+export const getRandomColor = () => {
+  return "hsla(" + Math.random() * 360 + ", 100%, 80%, 0.3)";
+};
