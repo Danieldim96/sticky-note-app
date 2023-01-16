@@ -83,4 +83,5 @@ export const TopDragWrapper = styled.div`
 
 export const NoteContainer = styled.div`
   position: fixed;
+  z-index: 1;
 `;
