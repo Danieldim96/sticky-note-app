@@ -1,3 +1,4 @@
+import { NOTE_CONSTANTS } from "../constants";
 import { NoteType } from "../types";
 import { getRandomColor } from "../utils";
 import { DISPATCH_TYPES, InitialState } from "./types";
@@ -14,30 +15,41 @@ export const NotesReducer = (
   switch (type) {
     /**
      * the aim here is to manually add position and size atrributes to the note when creating the note.
-     * we also needed to prevent each new note from rendering ontop each other, so we calculate the last
-     * Y position of the last note and add it's height and a 10px spacing veritically.
-     * We also generate randomly a bg color for each new note.
+     * we also needed to prevent each new note from rendering ontop each other, so we determine if any more notes can
+     * be fitted on the same line. If yes, we add new note next to the previous note with a 15px gap.
+     * else we jump to a new row.
      */
     case DISPATCH_TYPES.addNote:
       let notes;
       const oldState = [...(state?.notes ?? [])];
-      if (oldState.length === 0) {
-        note.notePosX = 20;
-        note.notePosY = 300;
-        note.noteWidth = 300;
-        note.noteHeight = 300;
-        note.color = getRandomColor();
-        notes = [note];
-      } else {
+      note.noteWidth = NOTE_CONSTANTS.width;
+      note.noteHeight = NOTE_CONSTANTS.height;
+      note.notePosX = NOTE_CONSTANTS.PosX;
+      note.notePosY = NOTE_CONSTANTS.PosY;
+      note.color = getRandomColor();
+
+      if (oldState.length > 0) {
         const stateLen: number = oldState.length;
         const lastNote: NoteType = oldState[stateLen - 1];
-        note.notePosX = 20;
-        note.noteWidth = 300;
-        note.noteHeight = 300;
-        note.color = getRandomColor();
-        note.notePosY = lastNote.notePosY! + lastNote.noteHeight! + 10;
-        notes = [...oldState, note];
+        let totalUsedWidth = 0;
+        oldState.every(
+          ({ noteWidth }: { noteWidth: number }) =>
+            (totalUsedWidth += noteWidth)
+        );
+        // determine how many more notes van be fitted on the current row.
+        const numberLeft = Math.floor(
+          (window.innerWidth - totalUsedWidth) / NOTE_CONSTANTS.width
+        );
+
+        if (numberLeft === 0) {
+          note.notePosY =
+            lastNote.notePosY! + lastNote.noteHeight! + NOTE_CONSTANTS.gap;
+        } else {
+          note.notePosX =
+            lastNote.notePosX! + lastNote.noteWidth! + NOTE_CONSTANTS.gap;
+        }
       }
+      notes = [...oldState, note];
       return { ...state, notes };
 
     case DISPATCH_TYPES.deleteNote:
