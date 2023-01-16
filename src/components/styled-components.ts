@@ -33,7 +33,10 @@ export const StyledNote = styled.div`
   margin: 1.5rem;
   position: relative;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  background: white;
 `;
 
 export const AddPointerCursor = styled.div`
@@ -53,23 +56,6 @@ export const RightSideResizer = styled.div`
   height: 100%;
   cursor: col-resize;
 `;
-export const LeftSideResizer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  cursor: col-resize;
-`;
-
-export const TopSideResizer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  cursor: row-resize;
-`;
 
 export const BottomSideResizer = styled.div`
   position: absolute;
@@ -78,4 +64,23 @@ export const BottomSideResizer = styled.div`
   width: 100%;
   height: 5px;
   cursor: row-resize;
+`;
+
+export const NoteWrapper = styled.div`
+  display: flex;
+  margin: 1.5rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+`;
+
+export const TopDragWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 10px;
+  cursor: move;
+`;
+
+export const NoteContainer = styled.div`
+  position: fixed;
 `;

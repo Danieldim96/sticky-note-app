@@ -1,4 +1,4 @@
 export { Banner } from "./Banner";
-export { NoteDetail } from "./NoteDetail";
-export { NotesModal } from "./NotesModal";
-export { Note } from "./Note";
+export { NotesModal } from "./Notes/NotesModal";
+export { Note } from "./Notes/Note";
+export { Notes } from "./Notes/Notes";

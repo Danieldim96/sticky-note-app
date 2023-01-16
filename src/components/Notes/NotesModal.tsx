@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Modal } from "./Modal";
-import { NoteType } from "../types";
-import { getUniqueId } from "../utils";
+import { Modal } from "../Modal";
+import { NoteType } from "../../types";
+import { getUniqueId } from "../../utils";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";

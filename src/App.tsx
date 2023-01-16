@@ -1,14 +1,10 @@
-import { StickyNotes } from "./views";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
+import { StickyNotes } from "./views";
 
 function App(props: any) {
-  return (
-    <>
-      <StickyNotes {...props} />
-    </>
-  );
+  return <StickyNotes {...props} />;
 }
 
 export default connect(

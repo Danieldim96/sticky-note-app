@@ -1,0 +1,1 @@
+export { NotesPortal } from "./NotesPortal";
