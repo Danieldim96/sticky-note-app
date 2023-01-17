@@ -45,6 +45,7 @@ export const NoteTopDrager = ({
     <TopDragWrapper
       onMouseDown={() => setMouseDown(true)}
       title="Place Note Anywhere on Page"
+      aria-label="Note Dragger"
     >
       <ArrowsMove />
     </TopDragWrapper>

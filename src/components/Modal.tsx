@@ -23,7 +23,7 @@ export const Modal = ({
   return (
     <RModal show={showModal} onHide={onClose}>
       <RModal.Header closeButton>
-        <RModal.Title>{title}</RModal.Title>
+        <RModal.Title aria-label="Modal Title">{title}</RModal.Title>
       </RModal.Header>
       <RModal.Body>{children}</RModal.Body>
       <RModal.Footer>
@@ -32,6 +32,7 @@ export const Modal = ({
             variant={variant}
             onClick={onPrimaryButtonClick}
             type="submit"
+            aria-label="Primary Modal Button"
           >
             {primaryButtonText}
           </Button>

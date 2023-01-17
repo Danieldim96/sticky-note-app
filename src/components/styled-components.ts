@@ -94,7 +94,7 @@ export const TopDragWrapper = styled.div`
   background: #f0f0f0;
 `;
 
-export const NoteContainer = styled.div`
+export const StyledNoteContainer = styled.div`
   position: fixed;
   z-index: 1;
   ${({ top = 0, left = 0 }: { top?: number; left?: number }) =>

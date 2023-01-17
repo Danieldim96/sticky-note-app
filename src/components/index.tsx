@@ -4,3 +4,4 @@ export { Note } from "./Notes/Note";
 export { Notes } from "./Notes/Notes";
 export { TrashZone } from "./TrashZone";
 export { DeleteNoteModal } from "./Notes/DeleteNoteModal";
+export { NoteContainer } from "./Notes/NoteContainer";

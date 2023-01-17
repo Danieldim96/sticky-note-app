@@ -11,7 +11,7 @@ export const editNote = (note: NoteType) => ({
   note,
 });
 
-export const deleteNote = (noteId: number) => ({
+export const deleteNote = (noteId: string) => ({
   type: DISPATCH_TYPES.deleteNote,
   note: { noteId },
 });

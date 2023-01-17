@@ -13,7 +13,10 @@ export const Banner = ({
   return (
     <BannerWrapper>
       <Header>Sticky Notes App</Header>
-      <AddStickyNoteButton onClick={() => setModalOpen(true)}>
+      <AddStickyNoteButton
+        onClick={() => setModalOpen(true)}
+        aria-label="Add New Note Button"
+      >
         + Add New Note
       </AddStickyNoteButton>
     </BannerWrapper>

@@ -43,9 +43,11 @@ export const NoteResizer = ({
     <>
       <BottomSideResizer
         onMouseDown={() => setDirection(MOUSE_DIRECTIONS.bottom)}
+        aria-label="Bottom Side Resizer"
       />
       <RightSideResizer
         onMouseDown={() => setDirection(MOUSE_DIRECTIONS.right)}
+        aria-label="Right Side Resizer"
       />
     </>
   );

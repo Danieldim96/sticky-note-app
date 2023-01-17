@@ -4,7 +4,7 @@ import { getRandomColor } from "../utils";
 import { DISPATCH_TYPES, InitialState } from "./types";
 
 export const NotesReducer = (
-  state = InitialState,
+  state: any = InitialState,
   action: {
     type: string;
     note: NoteType;
@@ -26,7 +26,7 @@ export const NotesReducer = (
       note.noteHeight = NOTE_CONSTANTS.height;
       note.notePosX = NOTE_CONSTANTS.PosX;
       note.notePosY = NOTE_CONSTANTS.PosY;
-      note.color = getRandomColor();
+      note.color = note?.color ? note.color : getRandomColor();
 
       if (oldState.length > 0) {
         const stateLen: number = oldState.length;
@@ -54,7 +54,7 @@ export const NotesReducer = (
 
     case DISPATCH_TYPES.deleteNote:
       const filteredNotes = state.notes.filter(
-        ({ noteId }) => noteId !== note?.noteId
+        ({ noteId }: { noteId: string }) => noteId !== note?.noteId
       );
       return { ...state, notes: filteredNotes };
 

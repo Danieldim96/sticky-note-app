@@ -73,11 +73,20 @@ export const Note = ({
   };
 
   return (
-    <StyledNote notebgColor={color} noteHeight={noteHeight} noteWidth={noteWidth} ref={noteRef}>
+    <StyledNote
+      notebgColor={color}
+      noteHeight={noteHeight}
+      noteWidth={noteWidth}
+      ref={noteRef}
+      aria-label="Sticky Note"
+    >
       <NoteTopDrager onMouseDrag={onMouseDrag} onMouseUp={onDraggerMouseUp} />
       <NoteResizer onMouseResize={onMouseResize} onMouseUp={onResizerMouseUp} />
-      <AddPointerCursor title={`Edit ${noteTitle} note.`}>
-        <PencilSquare onClick={handleEditIconClick} />
+      <AddPointerCursor
+        title={`Edit ${noteTitle} note.`}
+        aria-label="Edit Note Icon Wrapper"
+      >
+        <PencilSquare onClick={handleEditIconClick} aria-label='Edit Note Icon' />
       </AddPointerCursor>
       <RowWrapper>
         <Row className="mt-3">

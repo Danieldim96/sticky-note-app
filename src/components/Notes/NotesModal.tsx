@@ -54,7 +54,11 @@ export const NotesModal = ({
       primaryButtonText={primaryText}
     >
       <>
-        {!!error && <Alert variant="danger">{error}</Alert>}
+        {!!error && (
+          <Alert variant="danger" aria-label="Modal Alert">
+            {error}
+          </Alert>
+        )}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Note Title</Form.Label>
@@ -64,7 +68,8 @@ export const NotesModal = ({
                 setNoteData({ ...note, noteTitle: e.target.value })
               }
               required
-              value={note?.noteTitle || noteData?.noteTitle}
+              value={note?.noteTitle}
+              aria-label="Note Title"
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -77,7 +82,8 @@ export const NotesModal = ({
                 setNoteData({ ...note, noteContent: e.target.value });
               }}
               required
-              value={note.noteContent || noteData?.noteContent}
+              value={note.noteContent}
+              aria-label="Note Content"
             />
           </Form.Group>
         </Form>
